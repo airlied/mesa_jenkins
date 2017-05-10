@@ -136,7 +136,7 @@ class TimeoutException(Exception):
 class RepoSet:
     """this class represents the set of git repositories which are
     specified in the build_specification.xml file."""
-    def __init__(self):
+    def __init__(self, clone=False):
         buildspec = ProjectMap().build_spec()
         self._repos = {}
         # key is project, value is dictionary of remote name => remote object
@@ -154,22 +154,34 @@ class RepoSet:
             branch = "origin/master"
             if tag.attrib.has_key("branch"):
                 branch = tag.attrib["branch"]
-            
+
             project = tag.tag
 
-            assert ( not self._repos.has_key(project)) # double entry
+            # double entry
+            assert not self._repos.has_key(project)
 
             project_repo_dir = repo_dir + "/" + project
-            if not os.path.exists(project_repo_dir):
+            if not os.path.exists(project_repo_dir) and clone:
                 os.makedirs(project_repo_dir)
+                success = False
                 try:
                     build_lab_url = "git://otc-mesa-ci.local/git/" + project + "/origin"
                     print "attempting clone of " + build_lab_url
                     git.Repo.clone_from(build_lab_url,
                                         project_repo_dir)
+                    success = True
                 except:
                     print "clone failed, cloning from " + url
-                    git.Repo.clone_from(url, project_repo_dir)
+                if not success:
+                    try:
+                        git.Repo.clone_from(url, project_repo_dir)
+                        success = True
+                    except:
+                        print "WARN: unable to clone repo: " + url
+
+            if not os.path.exists(project_repo_dir):
+            # don't use this repo
+                continue
             repo = git.Repo(project_repo_dir)
             self._repos[project] = repo
             self._remotes[project] = {}
@@ -180,19 +192,27 @@ class RepoSet:
 
             for a_remote in tag.findall("remote"):
                 remote_name = a_remote.attrib["name"]
-                if not self._remotes[project].has_key(remote_name):
+                if not self._remotes[project].has_key(remote_name) and clone:
                     url = a_remote.attrib["repo"]
                     build_lab_url = "git://otc-mesa-ci.local/git/" + project + "/" + remote_name
                     print "Adding remote: " + remote_name + " " + build_lab_url
+                    success = False
                     try:
                         remote = repo.create_remote(remote_name, build_lab_url)
                         remote.fetch()
+                        success = True
                     except:
                         repo.delete_remote(remote_name)
+                    if not success:
                         print "build lab url failed, using " + url
-                        remote = repo.create_remote(remote_name, url)
-                    self._remotes[project][remote_name] = remote
-                
+                        try:
+                            remote = repo.create_remote(remote_name, url)
+                            remote.fetch()
+                            success = True
+                        except:
+                            print "WARN: remote not available: " + url
+                    if success:
+                        self._remotes[project][remote_name] = remote
 
     def repo(self, project_name):
         return self._repos[project_name]
