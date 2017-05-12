@@ -181,6 +181,7 @@ class RepoSet:
 
             if not os.path.exists(project_repo_dir):
             # don't use this repo
+                os.makedirs(project_repo_dir)
                 continue
             repo = git.Repo(project_repo_dir)
             self._repos[project] = repo
