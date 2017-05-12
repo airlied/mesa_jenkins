@@ -178,11 +178,11 @@ class RepoSet:
                         success = True
                     except:
                         print "WARN: unable to clone repo: " + url
+                        os.makedirs(project_repo_dir + "/do_not_use")
 
-            if not os.path.exists(project_repo_dir):
-            # don't use this repo
-                os.makedirs(project_repo_dir)
+            if os.path.exists(project_repo_dir + "/do_not_use"):
                 continue
+
             repo = git.Repo(project_repo_dir)
             self._repos[project] = repo
             self._remotes[project] = {}
