@@ -69,7 +69,9 @@ class BranchSpecification:
         # override the defaults
         for a_project in branch_tag:
             name = a_project.tag
-            assert(self._project_branches.has_key(name))
+            if not self._project_branches.has_key(name):
+                # repo unavailable
+                continue
             self._project_branches[name].trigger = True
             # allow the spec to set a "stable" branch that won't trigger
             if a_project.attrib.has_key("trigger"):
@@ -81,6 +83,8 @@ class BranchSpecification:
         invalid = []
         for (name, branch) in self._project_branches.iteritems():
             repo = repos.repo(branch.name)
+            if not repo:
+                continue
             try:
                 branch.sha = repo.commit(branch.branch).hexsha
             except:
