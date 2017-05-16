@@ -182,7 +182,7 @@ class RepoSet:
                 remote_name = a_remote.attrib["name"]
                 if not self._remotes[project].has_key(remote_name):
                     url = a_remote.attrib["repo"]
-                    build_lab_url = "git://otc-mesa-ci.local/git/" + project + "/" + remote_name
+                    build_lab_url = "git://deskeng.lab.eng.bne.redhat.com/" + project + "/" + remote_name
                     print "Adding remote: " + remote_name + " " + build_lab_url
                     try:
                         remote = repo.create_remote(remote_name, build_lab_url)
