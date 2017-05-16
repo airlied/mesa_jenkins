@@ -128,13 +128,6 @@
       <waffle/>
       <drm/>
 
-      <!-- the trigger attribute is used specify a branch that should
-           be used, but prevent builds from triggering if the branch
-           changes.  In this case, the prerelease repo contains test
-           status for unreleased platforms.  We want to use the
-           latest, but we don't want to retest every time a config
-           item changes. -->
-      <prerelease trigger="false"/>
     </branch>
 
   </branches>
