@@ -18,22 +18,18 @@ import urllib2
 # append services directory to pythonpath, so we can make use of
 # Daemon.  Second line is for finding Daemon when running from the
 # checkout, and not when runnning as a service.
-sys.path.append("/var/lib/git/mesa_jenkins/services/")
+sys.path.append("/home/git/mesa_jenkins/services/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), ".."))
 
 # append build_support directory to pythonpath, so we can make use of
 # RepoSet etc.  Second line is for finding build_support when running
 # from the checkout, and not when runnning as a service.
-sys.path.append("/var/lib/git/mesa_jenkins/")
+sys.path.append("/home/git/mesa_jenkins/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "../.."))
 import build_support as bs
 
 # running a service through intel's proxy requires some annoying settings.
-os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/local/bin/git"
-# without this, git-remote-https spins at 100%
-os.environ["http_proxy"] = "http://proxy.jf.intel.com:911/"
-os.environ["https_proxy"] = "http://proxy.jf.intel.com:911/"
-
+os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 
 def write_pid(pidfile):
     """Write the PID file."""
@@ -50,7 +46,7 @@ def main():
     try:
         bs.ProjectMap()
     except:
-        sys.argv[0] = "/var/lib/git/mesa_jenkins/foo.py"
+        sys.argv[0] = "/home/git/mesa_jenkins/foo.py"
     pm = bs.ProjectMap()
     spec_file = pm.source_root() + "/build_specification.xml"
 
