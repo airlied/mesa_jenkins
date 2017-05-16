@@ -39,7 +39,7 @@ from . import ProjectMap
 
 def convert_rsync_path(path):
     if path.startswith("/mnt/jenkins/"):
-        return path.replace("/mnt/jenkins/", "otc-mesa-ci.local::nfs/")
+        return path.replace("/mnt/jenkins/", "deskeng.lab.eng.bne.redhat.com::nfs/")
     return None
 
 class Export:
