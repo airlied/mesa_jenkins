@@ -312,10 +312,10 @@ class CMakeBuilder(object):
                            "-DCMAKE_INSTALL_PREFIX:PATH=" + self._build_root] \
                           + self._extra_definitions, env=env)
 
-        run_batch_command(["ninja", "-j" + str(cpu_count())], env=env)
+        run_batch_command(["ninja-build", "-j" + str(cpu_count())], env=env)
         if self._install:
             print "Installing: output suppressed"
-            run_batch_command(["ninja", "install"], streamedOutput=False, quiet=True)
+            run_batch_command(["ninja-build", "install"], streamedOutput=False, quiet=True)
 
         os.chdir(savedir)
 
@@ -773,7 +773,7 @@ class CtsBuilder(CMakeBuilder):
         run_batch_command(["cmake", "-GNinja", self._src_dir] + self._extra_definitions,
                              env=env)
 
-        run_batch_command(["ninja","-j" + str(cpu_count())], env=env)
+        run_batch_command(["ninja-build","-j" + str(cpu_count())], env=env)
 
         install_dir = pm.build_root() + "/bin/" + self._suite
         run_batch_command(["mkdir", "-p", install_dir])

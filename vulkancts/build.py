@@ -87,7 +87,7 @@ class VulkanCtsBuilder(object):
             os.makedirs(self._build_dir)
         os.chdir(self._build_dir)
         bs.run_batch_command(cmd)
-        bs.run_batch_command(["ninja", "vk-build-programs"])
+        bs.run_batch_command(["ninja-build", "vk-build-programs"])
         save_dir = os.getcwd()
         os.chdir("external/vulkancts/modules/vulkan")
         out_dir = os.path.join(self._src_dir, "external", "vulkancts", "data", "vulkan", "prebuilt")
@@ -96,7 +96,7 @@ class VulkanCtsBuilder(object):
                              quiet=True,
                              streamedOutput=False)
         os.chdir(save_dir)
-        bs.run_batch_command(["ninja"])
+        bs.run_batch_command(["ninja-build"])
         bin_dir = self._build_root + "/opt/deqp/"
         if not os.path.exists(bin_dir):
             os.makedirs(bin_dir)

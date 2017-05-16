@@ -43,7 +43,7 @@ class ShadercBuilder(object):
                "-DCMAKE_C_FLAGS=" + flags, "-DCMAKE_CXX_FLAGS=" + flags,
                "-DCMAKE_INSTALL_PREFIX:PATH=" + self._build_root, ".."]
         bs.run_batch_command(cmd)
-        bs.run_batch_command(["ninja"])
+        bs.run_batch_command(["ninja-build"])
         bin_dir = self._build_root + "/bin/"
         if not os.path.exists(bin_dir):
             os.makedirs(bin_dir)
