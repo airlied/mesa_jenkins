@@ -10,10 +10,10 @@ import time
 
 import git
 
-sys.path.append("/var/lib/git/mesa_jenkins/services/")
+sys.path.append("/home/git/mesa_jenkins/services/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), ".."))
 
-sys.path.append("/var/lib/git/mesa_jenkins/")
+sys.path.append("/home/git/mesa_jenkins/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "../.."))
 import build_support as bs
 
@@ -40,7 +40,7 @@ def robust_clone(url, directory):
     success = False
     while not success:
         try:
-            bs.run_batch_command(["/usr/local/bin/git", "clone", "--mirror",
+            bs.run_batch_command(["git", "clone", "--mirror",
                                   url, directory])
             success = True
         except(subprocess.CalledProcessError):
@@ -52,7 +52,7 @@ def robust_update():
     _success = False
     while not _success:
         try:
-            _repo = git.Repo("/var/lib/git/mesa_jenkins")
+            _repo = git.Repo("/home/git/mesa_jenkins")
             _repo.remotes.origin.pull()
             _success = True
         except:
@@ -76,15 +76,12 @@ def main():
 
     # running a service through intel's proxy requires some
     # annoying settings.
-    os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/local/bin/git"
-    # without this, git-remote-https spins at 100%
-    os.environ["http_proxy"] = "http://proxy.jf.intel.com:911/"
-    os.environ["https_proxy"] = "http://proxy.jf.intel.com:911/"
+    os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 
     try:
         bs.ProjectMap()
     except:
-        sys.argv[0] = "/var/lib/git/mesa_jenkins/foo.py"
+        sys.argv[0] = "/home/git/mesa_jenkins/foo.py"
 
     pm = bs.ProjectMap()
     spec_file = pm.source_root() + "/build_specification.xml"
@@ -99,7 +96,7 @@ def main():
         while new_spec_hash == orig_spec_hash:
             buildspec = bs.ProjectMap().build_spec()
 
-            repo_dir = "/var/lib/git/"
+            repo_dir = "/home/git/"
 
             # build up a list of git repo objects for all known repos.  If the
             # origin or the remotes are not already cloned, clone them.

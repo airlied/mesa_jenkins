@@ -163,7 +163,7 @@ class RepoSet:
             if not os.path.exists(project_repo_dir):
                 os.makedirs(project_repo_dir)
                 try:
-                    build_lab_url = "git://otc-mesa-ci.local/git/" + project + "/origin"
+                    build_lab_url = "git://deskeng.lab.eng.bne.redhat.com/" + project + "/origin"
                     print "attempting clone of " + build_lab_url
                     git.Repo.clone_from(build_lab_url,
                                         project_repo_dir)
