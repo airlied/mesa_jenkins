@@ -51,11 +51,11 @@ from . import NoConfigFile
 
 def mesa_version():
     br = ProjectMap().build_root()
-    libdir = "x86_64-linux-gnu"
-    if Options().arch == "m32":
-        libdir = "i386-linux-gnu"
+    libdir = "lib"
+    if Options().arch == "m64":
+        libdir = "lib64"
     wflinfo =  br + "/bin/wflinfo"
-    env = { "LD_LIBRARY_PATH" : br + "/lib:" + br + "/lib/" + libdir + ":" + br + "/lib/dri:" + br + "/lib/piglit/lib",
+    env = { "LD_LIBRARY_PATH" : br + "/lib:" + br + "/" + libdir + ":" + br + "/lib/dri:" + br + "/lib/piglit/lib",
 
                 "LIBGL_DRIVERS_PATH" : br + "/lib/dri",
             "GBM_DRIVERS_PATH" : br + "/lib/dri"
@@ -368,11 +368,11 @@ class PiglitTester(object):
 
         pm = ProjectMap()
         self.build_root = pm.build_root()
-        libdir = "x86_64-linux-gnu"
-        if o.arch == "m32":
-            libdir = "i386-linux-gnu"
+        libdir = "lib"
+        if o.arch == "m64":
+            libdir = "lib64"
         self.env = { "LD_LIBRARY_PATH" : self.build_root + "/lib:" + \
-                     self.build_root + "/lib/" + libdir + ":" + \
+                     self.build_root + "/" + libdir + ":" + \
                      self.build_root + "/lib/dri:" + \
                      self.build_root + "/lib/piglit/lib",
 
