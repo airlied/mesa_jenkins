@@ -7,10 +7,10 @@ import build_support as bs
 
 opts = [
     '-DCMAKE_BUILD_TYPE=Release',
-    '-DLLVM_ENABLE_ASSERTIONS=1',
-    '-DLLVM_TARGETS_TO_BUILD="AMDGPU;x86"',
-    '-DLLVM_BUILD_LLVM_DYLIB=1',
-    '-DLLVM_LINK_LLVM_DYLIB=1',
+    '-DLLVM_ENABLE_ASSERTIONS:BOOL=ON',
+    '-DLLVM_TARGETS_TO_BUILD:STRING="AMDGPU;X86"',
+    '-DLLVM_BUILD_LLVM_DYLIB:BOOL=ON',
+    '-DLLVM_LINK_LLVM_DYLIB:BOOL=ON',
 ]
 
 builder = bs.CMakeBuilder(extra_definitions=opts)
