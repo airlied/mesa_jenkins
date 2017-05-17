@@ -175,7 +175,8 @@ preferred_hardware = {"skl"    : 1,
                       "g965"   : 22,
                       "ilk"    : 23,
                       "g33"    : 24, 
-                      "g45"    : 25 }
+                      "g45"    : 25,
+                      "tonga"  : 100 }
 
 class PiglitTest:
     """Represents a single test.  Has the primary arch that will be
