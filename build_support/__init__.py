@@ -68,7 +68,8 @@ class DefaultTimeout:
         if self._options.hardware == "byt":
             # bay trail takes 15min to rsync to /tmp on the sdcard
             return 30
-        return 15
+	# bump to 25 for llvm
+        return 25
 
 def null_build():
     pass
