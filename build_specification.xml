@@ -72,10 +72,23 @@
                     arch="m64"/>
     </project>
 
+    <project name="vulkancts-test" src_dir="vulkancts"
+             bisect_hardware=""
+             bisect_arch="m64">
+      <prerequisite name="vulkancts" hardware="builder"/>
+      <prerequisite name="mesa" hardware="builder"/>
+      <prerequisite name="waffle" hardware="builder"/>
+    </project>
+
+    <project name="vulkancts-full">
+      <prerequisite name="vulkancts-test" hardware="tonga" arch="m64"/>
+    </project>
+
+    <project name="vulkancts"/>
+
     <project name="all-test">
       <prerequisite name="piglit-full"/>
     </project>
-
 
   </projects>
 
@@ -108,6 +121,12 @@
     <!-- just so the master can cache it for the builders -->
     <mesa_jenkins repo="git://github.com/airlied/mesa_jenkins.git"/>
 
+    <vulkancts repo="git://github.com/KhronosGroup/VK-GL-CTS"
+               branch="vulkan-cts-1.0.2">
+    </vulkancts>
+    <spirvtools repo="git://github.com/KhronosGroup/SPIRV-TOOLS"/>
+    <spirvheaders repo="git://github.com/KhronosGroup/SPIRV-Headers"/>
+
   </repos>
 
 
@@ -128,6 +147,11 @@
       <waffle/>
       <drm/>
 
+    </branch>
+
+    <branch name="vulkancts" project="vulkancts-full">
+      <mesa/>
+      <vulkancts branch="vulkan-cts-1.0.2"/>
     </branch>
 
   </branches>
