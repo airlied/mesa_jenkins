@@ -124,9 +124,9 @@ class Jenkins:
             try:
                 f = urllib2.urlopen(url)
                 return f
-            except (urllib2.HTTPError, urllib2.URLError):
-		print urllib2.HTTPError
-		print urllib2.URLError
+            except (urllib2.HTTPError, urllib2.URLError), error:
+		print error
+		print error.read()
                 print "failure urllib2.urlopen(\"{0}\")".format(url)
                 failcount += 1
                 if failcount == 5:
