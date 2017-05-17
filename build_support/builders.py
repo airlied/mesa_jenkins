@@ -597,6 +597,9 @@ class PiglitTester(object):
         if "bxt" in hardware:
             exclude_tests += ["arb_compute_shader.execution.simple-barrier-atomics"]
 
+        if "tonga" in hardware:
+            exclude_tests += ["tex3d-maxsize"]
+
         exclude_cmd = []
         for test in exclude_tests:
             fixed_test = test.replace('_', '.')
