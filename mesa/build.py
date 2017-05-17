@@ -15,7 +15,7 @@ class MesaBuilder(bs.AutoBuilder):
         options = []
         if global_opts.arch == "m32":
             # expat pkg-config fails for some reason on i386
-            options = ['EXPAT_LIBS="-L/usr/lib/i386-linux-gnu -lexpat"']
+            options = ['EXPAT_LIBS="-L/usr/lib/ -lexpat"']
 
         surfaceless = ""
         if path.exists(bs.ProjectMap().project_source_dir() + "/src/egl/drivers/dri2/platform_surfaceless.c"):
@@ -27,7 +27,7 @@ class MesaBuilder(bs.AutoBuilder):
                              "--enable-glx-tls", 
                              "--enable-gles1",
                              "--enable-gles2",
-                             "--with-dri-drivers=i965,swrast,i915",
+                             "--with-dri-drivers=i965,i915",
 
                              # disable video drivers:
                              # bbe6f7f865cd4316b5f885507ee0b128a20686eb
@@ -37,9 +37,9 @@ class MesaBuilder(bs.AutoBuilder):
                              "--disable-vdpau",
 
                              # gallium tested with mesa-buildtest
-                             "--without-gallium-drivers"]
+                             "--with-gallium-drivers=radeonsi,swrast,nouveau,virgl"]
         if os.path.exists(bs.ProjectMap().project_source_dir() + "/src/intel/vulkan"):
-            options.append("--with-vulkan-drivers=intel")
+            options.append("--with-vulkan-drivers=intel,radeon")
 
         if global_opts.config == 'debug':
             options.append('--enable-debug')
