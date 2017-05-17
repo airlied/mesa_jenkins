@@ -27,6 +27,7 @@ class MesaBuilder(bs.AutoBuilder):
                              "--enable-glx-tls", 
                              "--enable-gles1",
                              "--enable-gles2",
+                             "--enable-texture-float",
                              "--with-dri-drivers=i965,i915",
 
                              # disable video drivers:
