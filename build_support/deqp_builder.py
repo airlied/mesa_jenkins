@@ -438,6 +438,7 @@ class DeqpTester:
         list_policy.blacklist(all_tests)
         
         if all_tests.empty():
+            print "No tests defined"
             return all_tests
 
         shardno = 0
