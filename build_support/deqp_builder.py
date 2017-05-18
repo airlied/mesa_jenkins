@@ -406,13 +406,12 @@ class DeqpTester:
         if env == None:
             env = {}
         build_root = self.pm.build_root()
-        libdir = "x86_64-linux-gnu"
-        if self.o.arch == "m32":
-            libdir = "i386-linux-gnu"
+        libdir = "lib"
+        if self.o.arch == "m64":
+            libdir = "lib64"
         base_env = { "LD_LIBRARY_PATH" : build_root + "/lib:" + \
-                     build_root + "/lib/" + libdir + ":" + build_root + "/lib/dri",
+                     build_root + "/" + libdir + ":" + build_root + "/lib/dri",
                      "LIBGL_DRIVERS_PATH" : build_root + "/lib/dri",
-                     "INTEL_PRECISE_TRIG" : "1",
                      "GBM_DRIVERS_PATH" : build_root + "/lib/dri",
 
                      # without this, Xorg limits frame rate to 1 FPS
