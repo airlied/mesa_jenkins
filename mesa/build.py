@@ -45,7 +45,7 @@ class MesaBuilder(bs.AutoBuilder):
         if global_opts.config == 'debug':
             options.append('--enable-debug')
 
-	options = options + ["LLVM_CONFIG=" + self.build_root + "bin/llvm-config"]
+	options = options + ["LLVM_CONFIG=/tmp/build_root/" + self._options.arch + "/bin/llvm-config"]
 
         # always enable optimizations in mesa because tests are too slow
         # without them.
