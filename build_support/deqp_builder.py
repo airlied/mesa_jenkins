@@ -434,6 +434,8 @@ class DeqpTester:
             all_tests.add_txt("retest_caselist.txt")
         else:
             all_tests = list_policy.tests(env)
+        if all_tests.empty():
+            print "No tests before blacklist"
 
         list_policy.blacklist(all_tests)
         

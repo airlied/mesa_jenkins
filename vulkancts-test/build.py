@@ -26,6 +26,7 @@ class VulkanTestList(object):
         trie = bs.DeqpTrie()
         trie.add_xml("dEQP-VK-cases.xml")
         os.chdir(self.pm.project_build_dir())
+	print trie
         return trie
     
     def binary(self):
