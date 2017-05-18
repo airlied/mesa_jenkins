@@ -45,6 +45,8 @@ class MesaBuilder(bs.AutoBuilder):
         if global_opts.config == 'debug':
             options.append('--enable-debug')
 
+	options = options + ["LLVM_CONFIG=" + self.build_root + "bin/llvm-config"]
+
         # always enable optimizations in mesa because tests are too slow
         # without them.
         bs.AutoBuilder.__init__(self, configure_options=options, opt_flags="-O2")
@@ -52,7 +54,8 @@ class MesaBuilder(bs.AutoBuilder):
     def build(self):
         """since mesa doesn't install an icd, generate one"""
         bs.AutoBuilder.build(self)
-        icd_path = "/tmp/build_root/" + self._options.arch + "/usr/share/vulkan/icd.d/dev_icd.json"
+        icd_path = "/tmp/build_root/" + self._options.arch + "/usr/share/vulkan/icd.d/intel_icd.json"
+        ricd_path = "/tmp/build_root/" + self._options.arch + "/usr/share/vulkan/icd.d/radeon_icd.json"
         icd_content = """\
 {
     "file_format_version": "1.0.0",
@@ -62,10 +65,21 @@ class MesaBuilder(bs.AutoBuilder):
     }
 }
 """ % self._options.arch
+        ricd_content = """\
+{
+    "file_format_version": "1.0.0",
+    "ICD": {
+        "library_path": "/tmp/build_root/%s/lib/libvulkan_radeon.so",
+        "abi_versions": "1.0.3"
+    }
+}
+""" % self._options.arch
         if not os.path.exists(os.path.dirname(icd_path)):
             os.makedirs(os.path.dirname(icd_path))
         with open(icd_path, "w") as icd_f:
             icd_f.write(icd_content)
+        with open(ricd_path, "w") as icd_f:
+            icd_f.write(ricd_content)
 
     def test(self):
         """Provide gtests as available"""
