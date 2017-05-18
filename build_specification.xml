@@ -121,7 +121,7 @@
     <!-- just so the master can cache it for the builders -->
     <mesa_jenkins repo="git://github.com/airlied/mesa_jenkins.git"/>
 
-    <glslang repo="git//github.com/KhronosGroup/glslang"/>
+    <glslang repo="git://github.com/KhronosGroup/glslang"/>
 
     <vulkancts repo="git://github.com/KhronosGroup/VK-GL-CTS"
                branch="vulkan-cts-1.0.2">
