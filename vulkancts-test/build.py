@@ -21,7 +21,7 @@ class VulkanTestList(object):
         deqp_dir = os.path.dirname(self.binary())
         os.chdir(deqp_dir)
         cmd = ["./" + os.path.basename(self.binary()),
-               "--deqp-runmode=xml-caselist --deqp-caselist-file=vk-default.txt"]
+               "--deqp-runmode=xml-caselist", "--deqp-caselist-file=vk-default.txt"]
         bs.run_batch_command(cmd, env=env)
         trie = bs.DeqpTrie()
         trie.add_xml("dEQP-VK-cases.xml")
