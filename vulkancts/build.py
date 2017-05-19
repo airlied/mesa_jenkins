@@ -3,6 +3,7 @@
 import sys, os
 import git
 import importlib
+from shutil import copy
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), ".."))
 import build_support as bs
@@ -104,6 +105,7 @@ class VulkanCtsBuilder(object):
                               self._build_dir + "/external/vulkancts/modules",
                               bin_dir])
 
+	shutil.copy("external/vulkancts/mustpass/1.0.2/vk-default.txt", self._build_root + "/opt/deqp/modules/vulkan/")
         bs.Export().export()
 
     def clean(self):
