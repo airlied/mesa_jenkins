@@ -50,8 +50,7 @@ class VulkanTester(object):
     def test(self):
         pm = bs.ProjectMap()
         env={"VK_ICD_FILENAMES" : pm.build_root() + \
-             "/usr/share/vulkan/icd.d/radeon_icd.json",
-		"DEQP_DETECT_GPU_HANG" : "1" }
+             "/usr/share/vulkan/icd.d/radeon_icd.json" }
         tester = bs.DeqpTester()
         binary = pm.build_root() + "/opt/deqp/modules/vulkan/deqp-vk"
         results = tester.test(binary,
