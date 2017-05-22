@@ -1,1 +1,2 @@
-dEQP-VK.memory.mapping.random
+dEQP-VK.xlib.incremental_present
+dEQP-VK.xcb.incremental_present
