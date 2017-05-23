@@ -26,7 +26,6 @@ class VulkanTestList(object):
         trie = bs.DeqpTrie()
         trie.add_xml("dEQP-VK-cases.xml")
         os.chdir(self.pm.project_build_dir())
-	print trie
         return trie
     
     def binary(self):
@@ -40,6 +39,7 @@ class VulkanTestList(object):
             blacklist_file = self.pm.project_source_dir("prerelease") + "/vulkancts-test/glk_expectations/vk_unstable_tests.txt"
         blacklist = bs.DeqpTrie()
         blacklist.add_txt(blacklist_file)
+	print blacklist_file
         all_tests.filter(blacklist)
 
 class VulkanTester(object):
