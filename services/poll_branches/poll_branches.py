@@ -28,7 +28,6 @@ sys.path.append("/home/git/mesa_jenkins/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "../.."))
 import build_support as bs
 
-# running a service through intel's proxy requires some annoying settings.
 os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 
 def write_pid(pidfile):
@@ -71,10 +70,6 @@ def main():
                           "/buildWithParameters?token=noauth&name=" + commit + "&type=percheckin"
                 retry_count = 0
 
-                # how wonderful, the proxy setting is required for
-                # git but prevents the service from accessing
-                # otc-mesa-ci.
-                os.environ["http_proxy"] = ""
                 while retry_count < 10:
                     try:
                         f = urllib2.urlopen(job_url)
@@ -87,7 +82,6 @@ def main():
                               file=sys.stderr)
                         sys.stderr.flush()
                         time.sleep(10)
-                os.environ["http_proxy"] = "http://proxy.jf.intel.com:911/"
 
             time.sleep(30)
             new_spec_hash = file_checksum(spec_file)
