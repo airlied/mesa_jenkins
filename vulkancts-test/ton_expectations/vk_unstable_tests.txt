@@ -1,2 +1,2 @@
-dEQP-VK.xlib.incremental_present
-dEQP-VK.xcb.incremental_present
+dEQP-VK.wsi.xlib.incremental_present
+dEQP-VK.wsi.xcb.incremental_present
