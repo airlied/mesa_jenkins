@@ -81,13 +81,11 @@ def cpu_count():
 
 def get_package_config_path():
     lib_dir = ""
-    if Options().arch == "m32":
-        lib_dir = "i386-linux-gnu"
-    else:
-        lib_dir = "x86_64-linux-gnu"
+    if Options().arch == "m64":
+        lib_dir = "lib64"
 
     build_root = ProjectMap().build_root()
-    pkg_config_path = build_root + "/lib/" + lib_dir + "/pkgconfig:" + \
+    pkg_config_path = build_root + "/" + lib_dir + "/pkgconfig:" + \
                       build_root + "/lib/pkgconfig:" + \
                       "/usr/lib/"+ lib_dir + "/pkgconfig:" + \
                       "/usr/lib/pkgconfig"
