@@ -597,6 +597,7 @@ class PiglitTester(object):
 
         if "tonga" in hardware:
             exclude_tests += ["tex3d-maxsize"]
+            exclude_tests += ["fbo-maxsize"]
 
         exclude_cmd = []
         for test in exclude_tests:
