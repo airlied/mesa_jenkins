@@ -68,7 +68,7 @@
 
     <project name="piglit-full">
       <prerequisite name="piglit-test"
-                    hardware="skl,tonga"
+                    hardware="tonga"
                     arch="m64"/>
     </project>
 
